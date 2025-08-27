@@ -1,15 +1,15 @@
 #include <iostream>
 using namespace std;
 
-int LinearSearch(int arr[], int n, int target) {
+int LinearSearch(int A[], int n, int element) {
     int low = 0, high = n - 1;
 
     while (low <= high) {
         int mid = low + (high - low) / 2; 
 
-        if (arr[mid] == target)
+        if (A[mid] == element)
             return mid; 
-        else if (arr[mid] < target)
+        else if (A[mid] < element)
             low = mid + 1;
         else
             high = mid - 1; 

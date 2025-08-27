@@ -1,70 +1,65 @@
 #include <iostream>
 using namespace std;
 
-// Merge two sorted halves
-void merge(int arr[], int left, int mid, int right) {
-    int n1 = mid - left + 1; // size of left half
-    int n2 = right - mid;    // size of right half
+void PrintArray(int A[], int n) {
+    for (int i = 0; i < n; i++)
+        cout << A[i] << " ";
+    cout << endl;
+}
 
-    // temporary arrays
-    int L[n1], R[n2];
+void Merge(int A[], int left, int mid, int right) {
+    int n1 = mid - left + 1; 
+    int n2 = right - mid;   
 
-    // copy data
+    int L1[n1], L2[n2];
+
     for (int i = 0; i < n1; i++)
-        L[i] = arr[left + i];
+        L1[i] = A[left + i];
     for (int j = 0; j < n2; j++)
-        R[j] = arr[mid + 1 + j];
+        L2[j] = A[mid + 1 + j];
 
-    // merge temp arrays back into arr[left..right]
     int i = 0, j = 0, k = left;
     while (i < n1 && j < n2) {
-        if (L[i] <= R[j]) {
-            arr[k] = L[i];
-            i++;
+        if (L1[i] <= L2[j]) {
+            A[k++] = L1[i++];
         } else {
-            arr[k] = R[j];
-            j++;
+            A[k++] = L2[j++];
         }
-        k++;
     }
 
-    // copy remaining elements (if any)
     while (i < n1) {
-        arr[k] = L[i];
-        i++;
-        k++;
+        A[k++] = L1[i++];
     }
     while (j < n2) {
-        arr[k] = R[j];
-        j++;
-        k++;
+        A[k++] = L2[j++];
     }
 }
 
-// Merge Sort function
-void mergeSort(int arr[], int left, int right) {
+void MergeSort(int A[], int left, int right) {
     if (left < right) {
         int mid = left + (right - left) / 2;
 
-        // sort first and second halves
-        mergeSort(arr, left, mid);
-        mergeSort(arr, mid + 1, right);
-
-        // merge sorted halves
-        merge(arr, left, mid, right);
+        MergeSort(A, left, mid);
+        MergeSort(A, mid + 1, right);
+        Merge(A, left, mid, right);
     }
 }
 
 int main() {
-    int arr[] = {38, 27, 43, 3, 9, 82, 10};
-    int n = sizeof(arr) / sizeof(arr[0]);
+    int n;
+    cout << "\nInput array size : ";
+    cin >> n;
 
-    mergeSort(arr, 0, n - 1);
+    int A[n];
+    cout << "\nInput array : ";
+    for(int i=0; i<n; i++){
+        cin >> A[i];
+    }
 
-    cout << "Sorted array: ";
-    for (int i = 0; i < n; i++)
-        cout << arr[i] << " ";
-    cout << endl;
+    MergeSort(A, 0, n - 1);
+
+    cout << "\nSorted array : ";
+    PrintArray(A, n);
 
     return 0;
 }

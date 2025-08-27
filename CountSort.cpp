@@ -2,47 +2,59 @@
 #include <vector>
 using namespace std;
 
-void PrintArray(vector<int> arr, int n) {
+void PrintArray(vector<int> A, int n) {
     for (int i = 0; i < n; i++)
-        cout << arr[i] << " ";
+        cout << A[i] << " ";
     cout << endl;
 }
 
-void CountSort(int arr[], int n) {
-    int maxVal = arr[0];
+void PrintArray(int A[], int n) {
+    for (int i = 0; i < n; i++)
+        cout << A[i] << " ";
+    cout << endl;
+}
+
+void CountSort(int A[], int n) {
+    int maxVal = A[0];
     for (int i = 1; i < n; i++)
-        if (arr[i] > maxVal)
-            maxVal = arr[i];
+        if (A[i] > maxVal)
+            maxVal = A[i];
 
     vector<int> count(maxVal + 1, 0);
 
-    for (int i = 0; i < n; i++) // frequency
-        count[arr[i]]++;
-    cout << "\nFrequency array : ";
-    PrintArray(count, n);
+    for (int i = 0; i < n; i++) 
+        count[A[i]]++;
+    cout << "\nFrequency array : \n";
+    for (int i = 0; i <= maxVal; i++) {
+        cout << i << " ";
+    }
+    cout << endl;
+    PrintArray(count, maxVal+1);
 
-    vector<int> output(n);
     int j = 0;
-    for (int i = 0; i <= maxVal; i--) {
+    for (int i = 0; i <= maxVal; i++) {
         while(count[i]>0) {
-            arr[j++] = i;
+            A[j++] = i;
             count[i]--;
         }
     }
-    cout << "\nRebuild array : ";
-    PrintArray(output, n);
 }
 
 int main() {
-    int arr[] = {4, 2, 2, 8, 3, 3, 1};
-    int n = sizeof(arr) / sizeof(arr[0]);
+    int n;
+    cout << "\nInput array size : ";
+    cin >> n;
 
-    CountSort(arr, n);
+    int A[n];
+    cout << "\nInput array : ";
+    for(int i=0; i<n; i++){
+        cin >> A[i];
+    }
 
-    cout << "Sorted array: ";
-    for (int i = 0; i < n; i++)
-        cout << arr[i] << " ";
-    cout << endl;
+    CountSort(A, n);
+
+    cout << "Sorted array : ";
+    PrintArray(A, n);
 
     return 0;
 }

@@ -1,22 +1,22 @@
 #include <iostream>
 using namespace std;
 
-void PrintArray(int arr[], int n) {
+void PrintArray(int A[], int n) {
     for (int i = 0; i < n; i++)
-        cout << arr[i] << " ";
+        cout << A[i] << " ";
     cout << endl;
 }
 
-void BubbleSort(int arr[], int n) {
+void BubbleSort(int A[], int n) {
     bool swapped;
     for (int i = 0; i < n - 1; i++) {
         swapped = false;
         for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                cout << "\nSwapping elements " << arr[j] << " and " << arr[j+1] << " : ";
-                swap(arr[j], arr[j + 1]);
+            if (A[j] > A[j + 1]) {
+                cout << "\nSwapping elements " << A[j] << " and " << A[j+1] << " : ";
+                swap(A[j], A[j + 1]);
                 swapped = true;
-                PrintArray(arr, n);
+                PrintArray(A, n);
             }
         }
 
@@ -30,16 +30,16 @@ int main() {
     cout << "\nInput array size : ";
     cin >> n;
 
-    int arr[n];
+    int A[n];
     cout << "\nInput array : ";
     for(int i=0; i<n; i++){
-        cin >> arr[i];
+        cin >> A[i];
     }
 
-    BubbleSort(arr, n);
+    BubbleSort(A, n);
 
     cout << "\nSorted array: ";
-    PrintArray(arr, n);
+    PrintArray(A, n);
 
     return 0;
 }

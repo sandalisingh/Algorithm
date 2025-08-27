@@ -3,15 +3,15 @@
 #include <algorithm> // for sort
 using namespace std;
 
-void PrintArray(float arr[], int n) {
+void PrintArray(float A[], int n) {
     for (int i = 0; i < n; i++)
-        cout << arr[i] << " ";
+        cout << A[i] << " ";
     cout << endl;
 }
 
-void PrintArray(vector<float> arr, int n) {
+void PrintArray(vector<float> A, int n) {
     for (int i = 0; i < n; i++)
-        cout << arr[i] << " ";
+        cout << A[i] << " ";
     cout << endl;
 }
 
@@ -34,12 +34,12 @@ void InsertionSort(vector<float>& bucket) {
     }
 }
 
-void BucketSort(float arr[], int n) {
+void BucketSort(float A[], int n) {
     vector<vector<float>> buckets(n);
 
     for (int i = 0; i < n; i++) {
-        int index = n * arr[i]; 
-        buckets[index].push_back(arr[i]);
+        int index = n * A[i]; 
+        buckets[index].push_back(A[i]);
     }
 
     for (int i = 0; i < n; i++) {
@@ -51,7 +51,7 @@ void BucketSort(float arr[], int n) {
     int k = 0;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < buckets[i].size(); j++) {
-            arr[k++] = buckets[i][j];
+            A[k++] = buckets[i][j];
         }
     }
 }
@@ -61,16 +61,16 @@ int main() {
     cout << "\nInput array size : ";
     cin >> n;
 
-    float arr[n];
+    float A[n];
     cout << "\nInput array : ";
     for(int i=0; i<n; i++){
-        cin >> arr[i];
+        cin >> A[i];
     }
 
-    BucketSort(arr, n);
+    BucketSort(A, n);
 
     cout << "\nSorted array: ";
-    PrintArray(arr, n);
+    PrintArray(A, n);
 
     return 0;
 }

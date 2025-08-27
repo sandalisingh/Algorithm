@@ -1,32 +1,44 @@
 #include <iostream>
 using namespace std;
 
-void selectionSort(int arr[], int n) {
+void PrintArray(int A[], int n) {
+    for (int i = 0; i < n; i++)
+        cout << A[i] << " ";
+    cout << endl;
+}
+
+void SelectionSort(int A[], int n) {
     for (int i = 0; i < n - 1; i++) {
         int minIndex = i;
 
-        // Find the minimum element in the remaining array
         for (int j = i + 1; j < n; j++) {
-            if (arr[j] < arr[minIndex])
+            if (A[j] < A[minIndex])
                 minIndex = j;
         }
 
-        // Swap the found minimum with the first element
         if (minIndex != i)
-            swap(arr[i], arr[minIndex]);
+            cout << "\nSwapping " << A[i] << " and " << A[minIndex] << " : ";
+            swap(A[i], A[minIndex]);
+            PrintArray(A, n);
+
     }
 }
 
 int main() {
-    int arr[] = {64, 25, 12, 22, 11};
-    int n = sizeof(arr) / sizeof(arr[0]);
+    int n;
+    cout << "\nInput array size : ";
+    cin >> n;
 
-    selectionSort(arr, n);
+    int A[n];
+    cout << "\nInput array : ";
+    for(int i=0; i<n; i++){
+        cin >> A[i];
+    }
 
-    cout << "Sorted array: ";
-    for (int i = 0; i < n; i++)
-        cout << arr[i] << " ";
-    cout << endl;
+    SelectionSort(A, n);
+
+    cout << "Sorted array : ";
+    PrintArray(A, n);
 
     return 0;
 }
