@@ -3,52 +3,59 @@
 #include <ctime>    // for seeding rand()
 using namespace std;
 
-// Partition function
-int partition(int arr[], int low, int high) {
-    int pivot = arr[high];  // pivot element
-    int i = low - 1;        // index of smaller element
+void PrintArray(int A[], int n) {
+    for (int i = 0; i < n; i++)
+        cout << A[i] << " ";
+    cout << endl;
+}
+
+int Partition(int A[], int low, int high) {
+    int pivot = A[high];  
+    int i = low - 1;        
 
     for (int j = low; j < high; j++) {
-        if (arr[j] < pivot) {
+        if (A[j] < pivot) {
             i++;
-            swap(arr[i], arr[j]);
+            swap(A[i], A[j]);
         }
     }
 
-    swap(arr[i + 1], arr[high]); // place pivot in correct position
+    swap(A[i + 1], A[high]); 
     return (i + 1);
 }
 
-// Function to choose a random pivot and partition
-int randomizedPartition(int arr[], int low, int high) {
-    int randomIndex = low + rand() % (high - low + 1); // random index in range
-    swap(arr[randomIndex], arr[high]); // swap with last element
-    return partition(arr, low, high);
+int RandomizedPartition(int A[], int low, int high) {
+    int randomIndex = low + rand() % (high - low + 1); 
+    swap(A[randomIndex], A[high]); 
+    return Partition(A, low, high);
 }
 
-// Randomized Quick Sort function
-void randomizedQuickSort(int arr[], int low, int high) {
+void RandomizedQuickSort(int A[], int low, int high) {
     if (low < high) {
-        int pi = randomizedPartition(arr, low, high);
+        int pi = RandomizedPartition(A, low, high);
 
-        // Recursively sort elements before and after partition
-        randomizedQuickSort(arr, low, pi - 1);
-        randomizedQuickSort(arr, pi + 1, high);
+        RandomizedQuickSort(A, low, pi - 1);
+        RandomizedQuickSort(A, pi + 1, high);
     }
 }
 
 int main() {
-    srand(time(0)); // seed random number generator
+    srand(time(0)); 
 
-    int arr[] = {10, 7, 8, 9, 1, 5};
-    int n = sizeof(arr) / sizeof(arr[0]);
+    int n;
+    cout << "\nInput array size : ";
+    cin >> n;
 
-    randomizedQuickSort(arr, 0, n - 1);
+    int A[n];
+    cout << "\nInput array : ";
+    for(int i=0; i<n; i++){
+        cin >> A[i];
+    }
 
-    cout << "Sorted array: ";
-    for (int i = 0; i < n; i++)
-        cout << arr[i] << " ";
-    cout << endl;
+    RandomizedQuickSort(A, 0, n - 1);
+
+    cout << "Sorted array : ";
+    PrintArray(A, n);
 
     return 0;
 }

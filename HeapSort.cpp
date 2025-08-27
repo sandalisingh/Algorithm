@@ -1,55 +1,54 @@
 #include <iostream>
 using namespace std;
 
-// Heapify a subtree rooted at index i
-void heapify(int arr[], int n, int i) {
-    int largest = i;         // Initialize largest as root
-    int left = 2 * i + 1;    // left child
-    int right = 2 * i + 2;   // right child
+void PrintArray(int A[], int n) {
+    for (int i = 0; i < n; i++)
+        cout << A[i] << " ";
+    cout << endl;
+}
 
-    // If left child is larger than root
-    if (left < n && arr[left] > arr[largest])
+void Heapify(int A[], int n, int i) {
+    int largest = i;         
+    int left = 2 * i + 1;    
+    int right = 2 * i + 2;   
+
+    if (left < n && A[left] > A[largest])
         largest = left;
 
-    // If right child is larger than largest so far
-    if (right < n && arr[right] > arr[largest])
+    if (right < n && A[right] > A[largest])
         largest = right;
 
-    // If largest is not root
     if (largest != i) {
-        swap(arr[i], arr[largest]);
-
-        // Recursively heapify the affected sub-tree
-        heapify(arr, n, largest);
+        swap(A[i], A[largest]);
+        Heapify(A, n, largest);
     }
 }
 
-// Heap Sort function
-void heapSort(int arr[], int n) {
-    // Build max heap
+void HeapSort(int A[], int n) {
     for (int i = n / 2 - 1; i >= 0; i--)
-        heapify(arr, n, i);
+        Heapify(A, n, i);
 
-    // Extract elements one by one
     for (int i = n - 1; i > 0; i--) {
-        // Move current root to end
-        swap(arr[0], arr[i]);
-
-        // Call heapify on reduced heap
-        heapify(arr, i, 0);
+        swap(A[0], A[i]);
+        Heapify(A, i, 0);
     }
 }
 
 int main() {
-    int arr[] = {12, 11, 13, 5, 6, 7};
-    int n = sizeof(arr) / sizeof(arr[0]);
+    int n;
+    cout << "\nInput array size : ";
+    cin >> n;
 
-    heapSort(arr, n);
+    int A[n];
+    cout << "\nInput array : ";
+    for(int i=0; i<n; i++){
+        cin >> A[i];
+    }
 
-    cout << "Sorted array: ";
-    for (int i = 0; i < n; i++)
-        cout << arr[i] << " ";
-    cout << endl;
+    HeapSort(A, n);
+
+    cout << "Sorted array : ";
+    PrintArray(A, n);
 
     return 0;
 }

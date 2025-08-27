@@ -1,24 +1,27 @@
 #include <iostream>
 using namespace std;
 
-// A function to get maximum value in arr[]
-int getMax(int arr[], int n) {
-    int mx = arr[0];
-    for (int i = 1; i < n; i++)
-        if (arr[i] > mx)
-            mx = arr[i];
-    return mx;
+void PrintArray(int A[], int n) {
+    for (int i = 0; i < n; i++)
+        cout << A[i] << " ";
+    cout << endl;
 }
 
-// A function to do counting sort of arr[] according to
-// the digit represented by exp (1s, 10s, 100s, etc.)
-void countingSort(int arr[], int n, int exp) {
-    int output[n]; // output array
+int GetMax(int A[], int n) {
+    int maxValue = A[0];
+    for (int i = 1; i < n; i++)
+        if (A[i] > maxValue)
+            maxValue = A[i];
+    return maxValue;
+}
+
+void CountingSort(int A[], int n, int exp) {
+    int output[n]; 
     int count[10] = {0};
 
     // Count occurrences of digits
     for (int i = 0; i < n; i++)
-        count[(arr[i] / exp) % 10]++;
+        count[(A[i] / exp) % 10]++;
 
     // Change count[i] so it contains actual position
     for (int i = 1; i < 10; i++)
@@ -26,35 +29,38 @@ void countingSort(int arr[], int n, int exp) {
 
     // Build the output array (stable sort)
     for (int i = n - 1; i >= 0; i--) {
-        int digit = (arr[i] / exp) % 10;
-        output[count[digit] - 1] = arr[i];
+        int digit = (A[i] / exp) % 10;
+        output[count[digit] - 1] = A[i];
         count[digit]--;
     }
 
-    // Copy output[] back to arr[]
+    // Copy output[] back to A[]
     for (int i = 0; i < n; i++)
-        arr[i] = output[i];
+        A[i] = output[i];
 }
 
-// Radix Sort function
-void radixSort(int arr[], int n) {
-    int m = getMax(arr, n); // Find max number
+void RadixSort(int A[], int n) {
+    int m = GetMax(A, n); 
 
-    // Do counting sort for every digit
     for (int exp = 1; m / exp > 0; exp *= 10)
-        countingSort(arr, n, exp);
+        CountingSort(A, n, exp);
 }
 
 int main() {
-    int arr[] = {170, 45, 75, 90, 802, 24, 2, 66};
-    int n = sizeof(arr) / sizeof(arr[0]);
+    int n;
+    cout << "\nInput array size : ";
+    cin >> n;
 
-    radixSort(arr, n);
+    int A[n];
+    cout << "\nInput array : ";
+    for(int i=0; i<n; i++){
+        cin >> A[i];
+    }
+
+    RadixSort(A, n);
 
     cout << "Sorted array: ";
-    for (int i = 0; i < n; i++)
-        cout << arr[i] << " ";
-    cout << endl;
+    PrintArray(A, n);
 
     return 0;
 }
